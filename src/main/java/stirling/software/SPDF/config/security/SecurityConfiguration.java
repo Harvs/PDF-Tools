@@ -190,6 +190,10 @@ public class SecurityConfiguration {
                                                                 ? uri.substring(
                                                                         contextPath.length())
                                                                 : uri;
+                                                // Allow both GET and POST for /login
+                                                if (trimmedUri.equals("/login")) {
+                                                    return true;
+                                                }
                                                 return trimmedUri.startsWith("/login")
                                                         || trimmedUri.startsWith("/oauth")
                                                         || trimmedUri.startsWith("/saml2")
@@ -202,7 +206,8 @@ public class SecurityConfiguration {
                                                         || trimmedUri.startsWith("/fonts/")
                                                         || trimmedUri.startsWith("/js/")
                                                         || trimmedUri.startsWith(
-                                                                "/api/v1/info/status");
+                                                                "/api/v1/info/status")
+                                                        || trimmedUri.startsWith("/setup/password");
                                             })
                                     .permitAll()
                                     .anyRequest()

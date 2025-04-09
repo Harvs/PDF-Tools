@@ -1,0 +1,8 @@
+security:
+  enableLogin: true
+  initialLogin:
+    username: "admin"
+    password: ""
+  loginMethod: "normal"
+  loginAttemptCount: 5
+  loginResetTimeMinutes: 15

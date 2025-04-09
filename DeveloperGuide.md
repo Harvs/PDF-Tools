@@ -1,12 +1,12 @@
-# Stirling-PDF Developer Guide
+# PDF Tools Developer Guide
 
 ## 1. Introduction
 
-Stirling-PDF is a robust, locally hosted, web-based PDF manipulation tool. This guide focuses on Docker-based development and testing, which is the recommended approach for working with the full version of Stirling-PDF.
+PDF Tools is a robust, locally hosted, web-based PDF manipulation tool. This guide focuses on Docker-based development and testing, which is the recommended approach for working with the full version of PDF Tools.
 
 ## 2. Project Overview
 
-Stirling-PDF is built using:
+PDF Tools is built using:
 
 - Spring Boot + Thymeleaf
 - PDFBox
@@ -32,8 +32,8 @@ Stirling-PDF is built using:
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/Stirling-Tools/Stirling-PDF.git
-   cd Stirling-PDF
+   git clone https://github.com/PDF-Tools/PDF-Tools.git
+   cd PDF-Tools
    ```
 
 2. Install Docker and JDK17 if not already installed.
@@ -51,18 +51,18 @@ Stirling-PDF is built using:
       4. Install the required extensions from the list.
 
 4. Lombok Setup
-Stirling-PDF uses Lombok to reduce boilerplate code. Some IDEs, like Eclipse, don't support Lombok out of the box. To set up Lombok in your development environment:
+PDF Tools uses Lombok to reduce boilerplate code. Some IDEs, like Eclipse, don't support Lombok out of the box. To set up Lombok in your development environment:
 Visit the [Lombok website](https://projectlombok.org/setup/) for installation instructions specific to your IDE.
 
 5. Add environment variable
-For local testing, you should generally be testing the full 'Security' version of Stirling-PDF. To do this, you must add the environment flag DOCKER_ENABLE_SECURITY=true to your system and/or IDE build/run step.
+For local testing, you should generally be testing the full 'Security' version of PDF Tools. To do this, you must add the environment flag DOCKER_ENABLE_SECURITY=true to your system and/or IDE build/run step.
 
 ## 4. Project Structure
 
 ```bash
-Stirling-PDF/
+PDF-Tools/
 ├── .github/               # GitHub-specific files (workflows, issue templates)
-├── configs/               # Configuration files used by stirling at runtime (generated at runtime)
+├── configs/               # Configuration files used by pdf at runtime (generated at runtime)
 ├── cucumber/              # Cucumber test files
 │   ├── features/
 ├── customFiles/           # Custom static files and templates (generated at runtime used to replace existing files)
@@ -74,9 +74,9 @@ Stirling-PDF/
 ├── src/                   # Source code
 │   ├── main/
 │   │   ├── java/
-│   │   │   └── stirling/
+│   │   │   └── pdf/
 │   │   │       └── software/
-│   │   │           └── SPDF/
+│   │   │           └── PDF/
 │   │   │               ├── config/
 │   │   │               ├── controller/
 │   │   │               ├── model/
@@ -91,9 +91,9 @@ Stirling-PDF/
 │   │       └── templates/
 │   └── test/
 │       └── java/
-│           └── stirling/
+│           └── pdf/
 │               └── software/
-│                   └── SPDF/
+│                   └── PDF/
 ├── build.gradle           # Gradle build configuration
 ├── Dockerfile             # Main Dockerfile
 ├── Dockerfile.ultra-lite  # Dockerfile for ultra-lite version
@@ -104,7 +104,7 @@ Stirling-PDF/
 
 ## 5. Docker-based Development
 
-Stirling-PDF offers several Docker versions:
+PDF Tools offers several Docker versions:
 
 - Full: All features included
 - Ultra-Lite: Basic PDF operations only
@@ -112,7 +112,7 @@ Stirling-PDF offers several Docker versions:
 
 ### Example Docker Compose Files
 
-Stirling-PDF provides several example Docker Compose files in the `exampleYmlFiles` directory, such as:
+PDF Tools provides several example Docker Compose files in the `exampleYmlFiles` directory, such as:
 
 - `docker-compose-latest.yml`: Latest version without security features
 - `docker-compose-latest-security.yml`: Latest version with security features enabled
@@ -122,9 +122,9 @@ These files provide pre-configured setups for different scenarios. For example, 
 
 ```yaml
 services:
-  stirling-pdf:
-    container_name: Stirling-PDF-Security
-    image: docker.stirlingpdf.com/stirlingtools/stirling-pdf:latest
+  pdf-tools:
+    container_name: PDF-Tools-Security
+    image: docker.pdf-tools.com/pdf-tools/pdf-tools:latest
     deploy:
       resources:
         limits:
@@ -137,9 +137,9 @@ services:
     ports:
       - "8080:8080"
     volumes:
-      - /stirling/latest/data:/usr/share/tessdata:rw
-      - /stirling/latest/config:/configs:rw
-      - /stirling/latest/logs:/logs:rw
+      - /pdf/latest/data:/usr/share/tessdata:rw
+      - /pdf/latest/config:/configs:rw
+      - /pdf/latest/logs:/logs:rw
     environment:
       DOCKER_ENABLE_SECURITY: "true"
       SECURITY_ENABLELOGIN: "true"
@@ -147,9 +147,9 @@ services:
       PGID: 1002
       UMASK: "022"
       SYSTEM_DEFAULTLOCALE: en-US
-      UI_APPNAME: Stirling-PDF
-      UI_HOMEDESCRIPTION: Demo site for Stirling-PDF Latest with Security
-      UI_APPNAMENAVBAR: Stirling-PDF Latest
+      UI_APPNAME: PDF-Tools
+      UI_HOMEDESCRIPTION: Demo site for PDF-Tools Latest with Security
+      UI_APPNAMENAVBAR: PDF-Tools Latest
       SYSTEM_MAXFILESIZE: "100"
       METRICS_ENABLED: "true"
       SYSTEM_GOOGLEVISIBILITY: "true"
@@ -164,7 +164,7 @@ docker-compose -f exampleYmlFiles/docker-compose-latest-security.yml up
 
 ### Building Docker Images
 
-Stirling-PDF uses different Docker images for various configurations. The build process is controlled by environment variables and uses specific Dockerfile variants. Here's how to build the Docker images:
+PDF Tools uses different Docker images for various configurations. The build process is controlled by environment variables and uses specific Dockerfile variants. Here's how to build the Docker images:
 
 1. Set the security environment variable:
 
@@ -183,20 +183,20 @@ Stirling-PDF uses different Docker images for various configurations. The build 
    For the latest version:
 
    ```bash
-   docker build --no-cache --pull --build-arg VERSION_TAG=alpha -t stirlingtools/stirling-pdf:latest -f ./Dockerfile .
+   docker build --no-cache --pull --build-arg VERSION_TAG=alpha -t pdf-tools/pdf-tools:latest -f ./Dockerfile .
    ```
 
    For the ultra-lite version:
 
    ```bash
-   docker build --no-cache --pull --build-arg VERSION_TAG=alpha -t stirlingtools/stirling-pdf:latest-ultra-lite -f ./Dockerfile.ultra-lite .
+   docker build --no-cache --pull --build-arg VERSION_TAG=alpha -t pdf-tools/pdf-tools:latest-ultra-lite -f ./Dockerfile.ultra-lite .
    ```
 
    For the fat version (with security enabled):
 
    ```bash
    export DOCKER_ENABLE_SECURITY=true
-   docker build --no-cache --pull --build-arg VERSION_TAG=alpha -t stirlingtools/stirling-pdf:latest-fat -f ./Dockerfile.fat .
+   docker build --no-cache --pull --build-arg VERSION_TAG=alpha -t pdf-tools/pdf-tools:latest-fat -f ./Dockerfile.fat .
    ```
 
 Note: The `--no-cache` and `--pull` flags ensure that the build process uses the latest base images and doesn't use cached layers, which is useful for testing and ensuring reproducible builds. however to improve build times these can often be removed depending on your usecase
@@ -205,7 +205,7 @@ Note: The `--no-cache` and `--pull` flags ensure that the build process uses the
 
 ### Comprehensive Testing Script
 
-Stirling-PDF provides a `test.sh` script in the root directory. This script builds all versions of Stirling-PDF, checks that each version works, and runs Cucumber tests. It's recommended to run this script before submitting a final pull request.
+PDF Tools provides a `test.sh` script in the root directory. This script builds all versions of PDF Tools, checks that each version works, and runs Cucumber tests. It's recommended to run this script before submitting a final pull request.
 
 To run the test script:
 
@@ -229,7 +229,7 @@ Note: The `test.sh` script will run automatically when you raise a PR. However, 
 
 ### Local Testing (Java and UI Components)
 
-For quick iterations and development of Java backend, JavaScript, and UI components, you can run and test Stirling-PDF locally without Docker. This approach allows you to work on and verify changes to:
+For quick iterations and development of Java backend, JavaScript, and UI components, you can run and test PDF Tools locally without Docker. This approach allows you to work on and verify changes to:
 
 - Java backend logic
 - RESTful API endpoints
@@ -237,7 +237,7 @@ For quick iterations and development of Java backend, JavaScript, and UI compone
 - User interface components and styling
 - Thymeleaf templates
 
-To run Stirling-PDF locally:
+To run PDF Tools locally:
 
 1. Compile and run the project using built-in IDE methods or by running:
 
@@ -271,7 +271,7 @@ Important notes:
 
 6. Push your changes to your fork.
 7. Submit a pull request to the main repository.
-8. See additional [contributing guidelines](https://github.com/Stirling-Tools/Stirling-PDF/blob/main/CONTRIBUTING.md).
+8. See additional [contributing guidelines](https://github.com/PDF-Tools/PDF-Tools/blob/main/CONTRIBUTING.md).
 
 When you raise a PR:
 
@@ -284,11 +284,11 @@ Address any issues that arise from these checks before finalizing your pull requ
 
 ## 8. API Documentation
 
-API documentation is available at `/swagger-ui/index.html` when running the application. You can also view the latest API documentation [here](https://app.swaggerhub.com/apis-docs/Stirling-Tools/Stirling-PDF/).
+API documentation is available at `/swagger-ui/index.html` when running the application. You can also view the latest API documentation [here](https://app.swaggerhub.com/apis-docs/PDF-Tools/PDF-Tools/).
 
 ## 9. Customization
 
-Stirling-PDF can be customized through environment variables or a `settings.yml` file. Key customization options include:
+PDF Tools can be customized through environment variables or a `settings.yml` file. Key customization options include:
 
 - Application name and branding
 - Security settings
@@ -300,14 +300,14 @@ When using Docker, pass environment variables using the `-e` flag or in your `do
 Example:
 
 ```bash
-docker run -p 8080:8080 -e APP_NAME="My PDF Tool" stirling-pdf:full
+docker run -p 8080:8080 -e APP_NAME="My PDF Tool" pdf-tools:full
 ```
 
 Refer to the main README for a full list of customization options.
 
 ## 10. Language Translations
 
-For managing language translations that affect multiple files, Stirling-PDF provides a helper script:
+For managing language translations that affect multiple files, PDF Tools provides a helper script:
 
 ```bash
 /scripts/replace_translation_line.sh
@@ -327,11 +327,11 @@ Remember to test your changes thoroughly to ensure they don't break any existing
 
 ### Overview of Thymeleaf
 
-Thymeleaf is a server-side Java HTML template engine. It is used in Stirling-PDF to render dynamic web pages. Thymeleaf integrates heavily with Spring Boot.
+Thymeleaf is a server-side Java HTML template engine. It is used in PDF Tools to render dynamic web pages. Thymeleaf integrates heavily with Spring Boot.
 
 ### Thymeleaf overview
 
-In Stirling-PDF, Thymeleaf is used to create HTML templates that are rendered on the server side. These templates are located in the `src/main/resources/templates` directory. Thymeleaf templates use a combination of HTML and special Thymeleaf attributes to dynamically generate content.
+In PDF Tools, Thymeleaf is used to create HTML templates that are rendered on the server side. These templates are located in the `src/main/resources/templates` directory. Thymeleaf templates use a combination of HTML and special Thymeleaf attributes to dynamically generate content.
 
 Some examples of this are:
 
@@ -383,12 +383,12 @@ This would generate n entries of tr for each person in exampleData
 ### Adding a New Feature to the Backend (API)
 
 1. **Create a New Controller:**
-   - Create a new Java class in the `src/main/java/stirling/software/SPDF/controller/api` directory.
+   - Create a new Java class in the `src/main/java/pdf/software/PDF/controller/api` directory.
    - Annotate the class with `@RestController` and `@RequestMapping` to define the API endpoint.
    - Ensure to add API documentation annotations like `@Tag(name = "General", description = "General APIs")` and `@Operation(summary = "Crops a PDF document", description = "This operation takes an input PDF file and crops it according to the given coordinates. Input:PDF Output:PDF Type:SISO")`.
 
    ```java
-   package stirling.software.SPDF.controller.api;
+   package pdf.software.PDF.controller.api;
 
    import org.springframework.web.bind.annotation.GetMapping;
    import org.springframework.web.bind.annotation.RequestMapping;
@@ -410,11 +410,11 @@ This would generate n entries of tr for each person in exampleData
    ```
 
 2. **Define the Service Layer:** (Not required but often useful)
-   - Create a new service class in the `src/main/java/stirling/software/SPDF/service` directory.
+   - Create a new service class in the `src/main/java/pdf/software/PDF/service` directory.
    - Implement the business logic for the new feature.
 
    ```java
-   package stirling.software.SPDF.service;
+   package pdf.software.PDF.service;
 
    import org.springframework.stereotype.Service;
 
@@ -433,13 +433,13 @@ This would generate n entries of tr for each person in exampleData
 - Autowire the service class in the controller and use it to handle the API request.
 
   ```java
-  package stirling.software.SPDF.controller.api;
+  package pdf.software.PDF.controller.api;
 
   import org.springframework.beans.factory.annotation.Autowired;
   import org.springframework.web.bind.annotation.GetMapping;
   import org.springframework.web.bind.annotation.RequestMapping;
   import org.springframework.web.bind.annotation.RestController;
-  import stirling.software.SPDF.service.NewFeatureService;
+  import pdf.software.PDF.service.NewFeatureService;
   import io.swagger.v3.oas.annotations.Operation;
   import io.swagger.v3.oas.annotations.tags.Tag;
 
@@ -506,18 +506,18 @@ This would generate n entries of tr for each person in exampleData
    ```
 
 2. **Create a New Controller for the UI:**
-   - Create a new Java class in the `src/main/java/stirling/software/SPDF/controller/ui` directory.
+   - Create a new Java class in the `src/main/java/pdf/software/PDF/controller/ui` directory.
    - Annotate the class with `@Controller` and `@RequestMapping` to define the UI endpoint.
 
    ```java
-   package stirling.software.SPDF.controller.ui;
+   package pdf.software.PDF.controller.ui;
 
    import org.springframework.beans.factory.annotation.Autowired;
    import org.springframework.stereotype.Controller;
    import org.springframework.ui.Model;
    import org.springframework.web.bind.annotation.GetMapping;
    import org.springframework.web.bind.annotation.RequestMapping;
-   import stirling.software.SPDF.service.NewFeatureService;
+   import pdf.software.PDF.service.NewFeatureService;
 
    @Controller
    @RequestMapping("/new-feature")
@@ -544,9 +544,9 @@ This would generate n entries of tr for each person in exampleData
    </li>
    ```
 
-## Adding New Translations to Existing Language Files in Stirling-PDF
+## Adding New Translations to Existing Language Files in PDF Tools
 
-When adding a new feature or modifying existing ones in Stirling-PDF, you'll need to add new translation entries to the existing language files. Here's a step-by-step guide:
+When adding a new feature or modifying existing ones in PDF Tools, you'll need to add new translation entries to the existing language files. Here's a step-by-step guide:
 
 ### 1. Locate Existing Language Files
 

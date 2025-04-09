@@ -24,13 +24,17 @@ public class InitialSecuritySetup {
 
     private final DatabaseInterface databaseService;
 
+    private final FirstRunPasswordSetup firstRunPasswordSetup;
+
     public InitialSecuritySetup(
             UserService userService,
             ApplicationProperties applicationProperties,
-            DatabaseInterface databaseService) {
+            DatabaseInterface databaseService,
+            FirstRunPasswordSetup firstRunPasswordSetup) {
         this.userService = userService;
         this.applicationProperties = applicationProperties;
         this.databaseService = databaseService;
+        this.firstRunPasswordSetup = firstRunPasswordSetup;
     }
 
     @PostConstruct
@@ -41,7 +45,13 @@ public class InitialSecuritySetup {
                 if (databaseService.hasBackup()) {
                     databaseService.importDatabase();
                 } else {
-                    initializeAdminUser();
+                    // Check if we're using the new first-run password setup flow
+                    if (firstRunPasswordSetup.isFirstRunSetupNeeded()) {
+                        // Skip creating default user - will be handled by FirstRunPasswordSetup
+                        log.info("First run detected. Waiting for password setup...");
+                    } else {
+                        initializeAdminUser();
+                    }
                 }
             }
 

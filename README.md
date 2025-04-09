@@ -1,23 +1,4 @@
-<p align="center"><img src="https://raw.githubusercontent.com/Stirling-Tools/Stirling-PDF/main/docs/stirling.png" width="80"></p>
-<h1 align="center">Stirling-PDF</h1>
-
-[![Docker Pulls](https://img.shields.io/docker/pulls/frooodle/s-pdf)](https://hub.docker.com/r/frooodle/s-pdf)
-[![Discord](https://img.shields.io/discord/1068636748814483718?label=Discord)](https://discord.gg/HYmhKj45pU)
-[![OpenSSF Scorecard](https://api.scorecard.dev/projects/github.com/Stirling-Tools/Stirling-PDF/badge)](https://scorecard.dev/viewer/?uri=github.com/Stirling-Tools/Stirling-PDF)
-[![GitHub Repo stars](https://img.shields.io/github/stars/stirling-tools/stirling-pdf?style=social)](https://github.com/Stirling-Tools/stirling-pdf)
-
-<a href="https://www.producthunt.com/posts/stirling-pdf?embed=true&utm_source=badge-featured&utm_medium=badge&utm_souce=badge-stirling&#0045;pdf" target="_blank"><img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=641239&theme=light" alt="Stirling&#0032;PDF - Open&#0032;source&#0032;locally&#0032;hosted&#0032;web&#0032;PDF&#0032;editor | Product Hunt" style="width: 250px; height: 54px;" width="250" height="54" /></a>
-[![Deploy to DO](https://www.deploytodo.com/do-btn-blue.svg)](https://cloud.digitalocean.com/apps/new?repo=https://github.com/Stirling-Tools/Stirling-PDF/tree/digitalOcean&refcode=c3210994b1af)
-
-[Stirling-PDF](https://www.stirlingpdf.com) is a robust, locally hosted web-based PDF manipulation tool using Docker. It enables you to carry out various operations on PDF files, including splitting, merging, converting, reorganizing, adding images, rotating, compressing, and more. This locally hosted web application has evolved to encompass a comprehensive set of features, addressing all your PDF requirements.
-
-All files and PDFs exist either exclusively on the client side, reside in server memory only during task execution, or temporarily reside in a file solely for the execution of the task. Any file downloaded by the user will have been deleted from the server by that point.
-
-Homepage: [https://stirlingpdf.com](https://stirlingpdf.com)
-
-All documentation available at [https://docs.stirlingpdf.com/](https://docs.stirlingpdf.com/)
-
-![stirling-home](images/stirling-home.jpg)
+# PDF-Tools
 
 ## Features
 
@@ -27,9 +8,9 @@ All documentation available at [https://docs.stirlingpdf.com/](https://docs.stir
 - Custom download options
 - Custom 'Pipelines' to run multiple features in a automated queue
 - API for integration with external scripts
-- Optional Login and Authentication support (see [here](https://docs.stirlingpdf.com/Advanced%20Configuration/System%20and%20Security) for documentation)
-- Database Backup and Import (see [here](https://docs.stirlingpdf.com/Advanced%20Configuration/DATABASE) for documentation)
-- Enterprise features like SSO see [here](https://docs.stirlingpdf.com/Enterprise%20Edition)
+- Optional Login and Authentication support (see [here](https://docs.pdftools.com/Advanced%20Configuration/System%20and%20Security) for documentation)
+- Database Backup and Import (see [here](https://docs.pdftools.com/Advanced%20Configuration/DATABASE) for documentation)
+- Enterprise features like SSO see [here](https://docs.pdftools.com/Enterprise%20Edition)
 
 ## PDF Features
 
@@ -100,7 +81,7 @@ All documentation available at [https://docs.stirlingpdf.com/](https://docs.stir
 
 # 📖 Get Started
 
-Visit our comprehensive documentation at [docs.stirlingpdf.com](https://docs.stirlingpdf.com) for:
+Visit our comprehensive documentation at [docs.pdftools.com](https://docs.pdftools.com) for:
 
 - Installation guides for all platforms
 - Configuration options
@@ -112,7 +93,7 @@ Visit our comprehensive documentation at [docs.stirlingpdf.com](https://docs.sti
 
 ## Supported Languages
 
-Stirling-PDF currently supports 39 languages!
+PDF Tools currently supports 39 languages!
 
 | Language                                     | Progress                               |
 | -------------------------------------------- | -------------------------------------- |
@@ -156,19 +137,3 @@ Stirling-PDF currently supports 39 languages!
 | Turkish (Türkçe) (tr_TR)                     | ![79%](https://geps.dev/progress/79)   |
 | Ukrainian (Українська) (uk_UA)               | ![99%](https://geps.dev/progress/99)   |
 | Vietnamese (Tiếng Việt) (vi_VN)              | ![76%](https://geps.dev/progress/76)   |
-
-
-## Stirling PDF Enterprise
-
-Stirling PDF offers an Enterprise edition of its software. This is the same great software but with added features, support and comforts.
-Check out our [Enterprise docs](https://docs.stirlingpdf.com/Enterprise%20Edition)
-
-
-## 🤝 Looking to contribute?
-
-Join our community:
-- [Contribution Guidelines](CONTRIBUTING.md)
-- [Translation Guide (How to add custom languages)](HowToAddNewLanguage.md)
-- [Issue Tracker](https://github.com/Stirling-Tools/Stirling-PDF/issues)
-- [Discord Community](https://discord.gg/HYmhKj45pU)
-- [Developer Guide](DeveloperGuide.md)
